@@ -1,0 +1,16 @@
+include header.jade
+  - for (var i = 0; i < posts.length; ++i){
+    p
+      h2
+        a(href="/u/#{posts[i].name}/#{posts[i].time.day}/#{posts[i].title}") #{posts[i].title}
+    p.info
+      |作者：
+      a(href="/u/#{posts[i].name}") #{posts[i].name}&nbsp;&nbsp;
+      |日期：#{posts[i].time.minute}
+      |标签：
+      - for(var i = 0; i<posts.length; i++)
+        - if(posts[i].tags)
+          a.tag(href="/tags/#{posts[i].tags}") #{posts[i].tags}
+    p #{posts[i].post}
+  - }
+  include paging.jade

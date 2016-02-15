@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    title Blog
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    header
+      h1 #{title}
+    nav
+      if (user)
+        each val, index in [['/','主页','home'],['/archive','存档','archive'],['/upload','上传','upload'],['/post','发表','post'],['/logout','登出','logout']]
+          span
+            a(title='#{val[1]}' href='#{val[0]}') #{val[2]}
+      else
+        each val, index in [['/','主页','home'],['/login','登录','login'],['/reg','注册','register']]
+          span
+            a(title='#{val[1]}' href='#{val[0]}') #{val[2]}
+    article
+      if (success)
+        div #{success}
+      if (error)
+        div #{error}
+      block content
