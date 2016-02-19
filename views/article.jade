@@ -1,18 +1,41 @@
 include header.jade
   - if (user && (user.name == post.name))
-    p
-      span
-        a.edit(href="/edit/#{post.name}/#{post.time.day}/#{post.title}") 编辑
-    p
-      span
-        a.edit(href="/remove/#{post.name}/#{post.time.day}/#{post.title}") 删除
+    span
+      a.edit(href="/edit/#{post.name}/#{post.time.day}/#{post.title}") 编辑
+    span
+      a.edit(href="/remove/#{post.name}/#{post.time.day}/#{post.title}") 删除
+  //- - var flag = 1
+  //- - if (user && (user.name != post.name))
+  //-   - if ((post.reprint_info.reprint_from != undefined) && (user.name == post.reprint_info.reprint_from.name))
+  //-     - flag = 0
+  //-   - if ((post.reprint_info.reprint_to != undefined))
+  //-     - for(var i=0; i<post.reprint_info.reprint_to.length; i++)
+  //-       - if (user.name == post.reprint_info.reprint_to.name)
+  //-         - flag = 0
+  //- - else
+  //-   - flag = 0
+  //- - if (flag)
+  //-   span
+  //-     a.edit(href="/reprint/#{post.name}/#{post.time.day}/#{post.title}") 转载
   p.info
     |作者：
     a(href="/u/#{post.name}") #{post.name}&nbsp;&nbsp;
     |日期：#{post.time.minute}
+    br
     |标签：
-    - for(var i = 0; i<post.length; i++)
-      - if(post[i].tags)
-        a.tag(href="/tags/#{post[i].tags}") #{post[i].tags}
+    - for(var j = 0; j<post.tags.length; j++)
+      - if(post.tags[j])
+        a.tag(href="/tags/#{post.tags[j]}") #{post.tags[j]}
+    //- - if (post.reprint_info.reprint_from)
+    //-   br
+    //-   a(href="/u/#{post.reprint_info.reprint_from.name}/#{post.reprint_info.reprint_from.day}/#{post.reprint_info.reprint_from.title}") 原文链接
   p #{post.post}
+  p.info
+    |阅读：#{post.pv} |
+    |评论：#{post.comments.length} |
+    //- |转载：
+    //- - if (post.reprint_info.reprint_to)
+    //-   |#{post.reprint_info.reprint_to.length}
+    //- - else
+    //-   |0
   include comment.jade
