@@ -5,9 +5,11 @@ br
       img(src="#{post.comments[i].head}" class="l_head")
       a(href="#{post.comments[i].website}") #{post.comments[i].name}
       span.info 回复于 #{post.comments[i].time}
-      p #{post.comments[i].content}
+      p !{post.comments[i].content}
 
 form(method="post")
+  include kindeditor.jade
+  //- include editormd.jade
   - if(user)
     |姓名：
     input(type="text" name="name" value="#{user.name}")
@@ -27,6 +29,11 @@ form(method="post")
     br
     |网址：
     input(type="text" name="website" value="http://")
+
+  //- div#editor
+  //-   div#editormd
+  //-     textarea(name="content")
+
   textarea(name="content" rows="5" cols="80")
   br
   input(type="submit" value="留言")

@@ -29,7 +29,7 @@ include header.jade
     //- - if (post.reprint_info.reprint_from)
     //-   br
     //-   a(href="/u/#{post.reprint_info.reprint_from.name}/#{post.reprint_info.reprint_from.day}/#{post.reprint_info.reprint_from.title}") 原文链接
-  p #{post.post}
+  p !{post.post}
   p.info
     |阅读：#{post.pv} |
     |评论：#{post.comments.length} |

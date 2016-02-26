@@ -1,0 +1,11 @@
+link(rel="stylesheet" href="/KindEditor/themes/default/default.css")
+script(charset="utf-8" src="/KindEditor/kindeditor-min.js")
+script(charest="utf-8" src="/KindEditor/lang/zh_CN.js")
+script.
+  var editor;
+  KindEditor.ready(function(K){
+    editor = K.create('textarea', {
+    allowImageUpload: false,
+    items: ['fontname', 'fontsize', '|', 'hilitecolor', 'bold', 'italic', 'underline', 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+    });
+  });

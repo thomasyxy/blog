@@ -17,7 +17,7 @@ include header.jade
       //- - if (posts[i].reprint_info.reprint_from)
       //-   br
       //-   a(href="/u/#{posts[i].reprint_info.reprint_from.name}/#{posts[i].reprint_info.reprint_from.day}/#{posts[i].reprint_info.reprint_from.title}") 原文链接
-    p #{posts[i].post}
+    p !{posts[i].post}
     p.info
       |阅读：#{posts[i].pv} |
       |评论：#{posts[i].comments.length} |

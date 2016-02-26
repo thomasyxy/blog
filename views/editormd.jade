@@ -1,0 +1,26 @@
+//- <link type="text/css" rel="stylesheet" href="/editormd/lib/codemirror/codemirror.min.css">
+//- <link type="text/css" rel="stylesheet" href="/editormd/lib/codemirror/addon/dialog/dialog.css">
+//- <link type="text/css" rel="stylesheet" href="/editormd/lib/codemirror/addon/search/matchesonscrollbar.css">
+//- <script id="-lib-codemirror-codemirror-min" type="text/javascript" src="/editormd/lib/codemirror/codemirror.min.js"></script>
+//- <script id="-lib-codemirror-modes-min" type="text/javascript" src="/editormd/lib/codemirror/modes.min.js"></script>
+//- <script id="-lib-codemirror-addons-min" type="text/javascript" src="/editormd/lib/codemirror/addons.min.js"></script>
+//- <script id="-lib-marked-min" type="text/javascript" src="/editormd/lib/marked.min.js"></script>
+//- <script id="-lib-prettify-min" type="text/javascript" src="/editormd/lib/prettify.min.js"></script>
+
+link(rel="stylesheet" href="/editormd/css/editormd.min.css")
+script(charset="utf-8" src="/editormd/editormd.min.js")
+script(charest="utf-8" src="/editormd/languages/zh-tw.js")
+script.
+  $(function() {
+      var editor = editormd("editormd", {
+          path : "/editormd/lib/" // Autoload modules mode, codemirror, marked... dependents libs path
+      });
+
+      /*
+      // or
+      var editor = editormd({
+          id   : "editormd",
+          path : "../lib/"
+      });
+      */
+  });

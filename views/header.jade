@@ -4,6 +4,25 @@ html
     meta(charset="UTF-8")
     title Blog
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(charset="utf-8" src="/editormd/examples/js/jquery.min.js")
+    //- script.
+    //-   var editor;
+    //-   KindEditor.ready(function(K){
+    //-     editor = K.create('#kindeditor');
+    //-   });
+    //-   //- $(function() {
+    //-   //-     var editor = editormd("editormd", {
+    //-   //-         path : "/editor.md/lib/" // Autoload modules mode, codemirror, marked... dependents libs path
+    //-   //-     });
+
+    //-   //-     /*
+    //-   //-     // or
+    //-   //-     var editor = editormd({
+    //-   //-         id   : "editormd",
+    //-   //-         path : "../lib/"
+    //-   //-     });
+    //-   //-     */
+    //-   //- });
   body
     header
       h1 #{title}
@@ -16,7 +35,7 @@ html
           form(action="/search" method="GET")
             input(type="text" name="keyword" placeholder="SEARCH" class="search")
       else
-        each val, index in [['/','主页','home'],['/login','登录','login'],['/reg','注册','register']]
+        each val, index in [['/','主页','home'],['/archive','存档','archive'],['/tags','标签','tags'],['/links','友情链接','links'],['/login','登录','login'],['/reg','注册','register']]
           span
             a(title='#{val[1]}' href='#{val[0]}') #{val[2]}
         span

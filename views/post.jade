@@ -1,5 +1,7 @@
 include header.jade
 form(method="post")
+  include kindeditor.jade
+  //- include editormd.jade
   |标题
   br
   input(type="text" name="title")
@@ -12,6 +14,10 @@ form(method="post")
   br
   |正文
   br
+  //- div#editor
+  //-   div#editormd
+  //-     textarea(name="post")
+
   textarea(name="post" rows="20" cols="100")
   br
   input(type="submit" value="发表")
