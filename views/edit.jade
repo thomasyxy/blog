@@ -1,5 +1,6 @@
 include header.jade
   form(method="post")
+    include kindeditor.jade
     |标题：
     br
     input(type="text" name="title" value="#{post.title}" disabled="disabled")

@@ -1,9 +1,10 @@
 include header.jade
-ul.archive
-  - for(var i = 0; i < posts.length; i++)
-    li
-      h3 #{posts[i].time.year}
-    li
-      time #{posts[i].time.day}
-    li
-      a(href="/u/#{posts[i].name}/#{posts[i].time.day}/#{posts[i].title}") #{posts[i].title}
+  ul.archive
+    - for(var i = 0; i < posts.length; i++)
+      li
+        h3 #{posts[i].time.year}
+      li
+        time #{posts[i].time.day}
+      li
+        a(href="/u/#{posts[i].name}/#{posts[i].time.day}/#{posts[i].title}") #{posts[i].title}
+include foot.jade

@@ -2,9 +2,12 @@ doctype html
 html
   head
     meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
     title Blog
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet/less', href='/stylesheets/style.less')
+    link(href="/stylesheets/jquery.mCustomScrollbar.css" rel="stylesheet")
     script(charset="utf-8" src="/editormd/examples/js/jquery.min.js")
+    script(src="/javascripts/less.min.js")
     //- script.
     //-   var editor;
     //-   KindEditor.ready(function(K){
@@ -24,26 +27,73 @@ html
     //-   //-     */
     //-   //- });
   body
-    header
-      h1 #{title}
-    nav
-      if (user)
-        each val, index in [['/','主页','home'],['/archive','存档','archive'],['/tags','标签','tags'],['/links','友情链接','links'],['/upload','上传','upload'],['/post','发表','post'],['/logout','登出','logout']]
-          span
-            a(title='#{val[1]}' href='#{val[0]}') #{val[2]}
-        span
-          form(action="/search" method="GET")
-            input(type="text" name="keyword" placeholder="SEARCH" class="search")
-      else
-        each val, index in [['/','主页','home'],['/archive','存档','archive'],['/tags','标签','tags'],['/links','友情链接','links'],['/login','登录','login'],['/reg','注册','register']]
-          span
-            a(title='#{val[1]}' href='#{val[0]}') #{val[2]}
-        span
-          form(action="/search" method="GET")
-            input(type="text" name="keyword" placeholder="SEARCH" class="search")
-    article
-      if (success)
-        div #{success}
-      if (error)
-        div #{error}
-      block content
+    div#cover-con
+    div#prompt
+      a.p-close
+      div.p-user
+        div.p-u-login.move 登录
+
+      form#section1(method="post")
+        div.p-container
+          p.p-c-group
+            input.p-i-name.def(type="text" name="name" placeholder="请输入用户名" autocomplete="off")
+            input.p-i-pwd.def(type="password" name="password" placeholder="请输入密码" autocomplete="off")
+          input.p-i-reg(type="submit" value="登录")
+        div.p-foot.p-foot-r
+          a.p-f-go.p-f-href(href="javascript:;") 没有账号，前往注册&nbsp;&nbsp;>
+
+      form#section2(method="post")
+        div.p-container
+          p.p-c-group
+            div.p-c-text
+              label 用户名：
+            input.p-i-name.def(type="text" name="name" placeholder="请输入用户名" autocomplete="off")
+            div.p-c-text
+              label 密码：
+            input.p-i-pwd.def(type="password" name="password" placeholder="请输入密码" autocomplete="off")
+            div.p-c-text
+              label 确认密码：
+            input.p-i-pwdre.def(type="password" name="password-repeat" placeholder="请输入密码" autocomplete="off")
+            div.p-c-text
+              label 邮箱：
+            input.p-i-email.def(type="email" name="email" placeholder="请输入邮箱" autocomplete="off")
+          input.p-i-reg(type="submit" value="注册")
+        div.p-foot
+          a.p-f-return.p-f-href(href="javascript:;") <&nbsp;&nbsp;返回登录
+
+
+    div#container
+      header.title
+        h1 #{title}
+        div.user
+          if (user)
+            div.info
+            a(title="注销" href="/logout") 注销
+          else
+            div#login(title="登录") 登录/注册
+      nav.main-nav
+        ul
+          if (user)
+            each val, index in [['/','主页','home'],['/archive','存档','archive'],['/tags','标签','tags'],['/links','友情链接','links'],['/upload','上传','upload'],['/post','发表','post'],['/logout','登出','logout']]
+              li(class="page #{val[2]}")
+                a(title='#{val[1]}' href='#{val[0]}') #{val[1]}
+                  div.shadow
+            li
+              form(action="/search" method="GET")
+                input(type="text" name="keyword" placeholder="搜索" class="search")
+          else
+            each val, index in [['/','主页','home'],['/archive','存档','archive'],['/tags','标签','tags'],['/links','友情链接','links'],['/login','登录','login'],['/reg','注册','register']]
+              li(class="page #{val[2]}")
+                a(title='#{val[1]}' href='#{val[0]}') #{val[1]}
+                  div.shadow
+            li
+              form(action="/search" method="GET")
+                input(type="text" name="keyword" placeholder="搜索" class="search")
+      article.content
+        div.shadow
+        div.inner
+          if (success)
+            div #{success}
+          if (error)
+            div #{error}
+          block content

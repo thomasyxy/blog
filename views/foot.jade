@@ -1,0 +1,10 @@
+script(src="/javascripts/Scrollbar.min.js")
+script(charset="utf-8" src="/javascripts/common.js")
+script.
+  (function($){
+    $(window).load(function(){
+      $(".content").mCustomScrollbar({
+        scrollInertia:150
+      });
+    });
+  })(jQuery);

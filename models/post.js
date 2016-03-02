@@ -221,7 +221,7 @@ Post.remove = function(name, day, title, callback){
 				}
 				//如果有 reprint_from, 即该文章是转载来的，先保存下来 reprint_from
 				var reprint_from = "";
-				if(doc.reprint_info.reprint.from){
+				if(doc.reprint_info.reprint_from){
 					reprint_from = doc.reprint_info.reprint_from;
 				}
 				if(reprint_from != ""){

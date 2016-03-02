@@ -1,23 +1,23 @@
 include header.jade
-form(method="post")
-  include kindeditor.jade
-  //- include editormd.jade
-  |标题
-  br
-  input(type="text" name="title")
-  br
-  |标签
-  br
-  input(type="text" name="tag1")
-  input(type="text" name="tag2")
-  input(type="text" name="tag3")
-  br
-  |正文
-  br
-  //- div#editor
-  //-   div#editormd
-  //-     textarea(name="post")
+  form(method="post")
+    include kindeditor.jade
+    //- include editormd.jade
+    |标题
+    br
+    input(type="text" name="title")
+    br
+    |标签
+    br
+    input(type="text" name="tag1")
+    input(type="text" name="tag2")
+    input(type="text" name="tag3")
+    br
+    |正文
+    br
+    //- div#editor
+    //-   div#editormd
+    //-     textarea(name="post")
 
-  textarea(name="post" rows="20" cols="100")
-  br
-  input(type="submit" value="发表")
+    textarea(name="post" rows="20" cols="100")
+    br
+    input(type="submit" value="发表")
