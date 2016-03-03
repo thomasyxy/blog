@@ -6,3 +6,11 @@ div
 - if(!isLastPage)
   span.nextpage
     a(title="下一页" href="?p=#{page+1}") 下一页
+script.
+  $(function(){
+    var scl = function(){
+      var abc = $('.inner').width();
+      $('#scl-page').jscrollbar();
+    }
+    setTimeout(scl,300);
+  });

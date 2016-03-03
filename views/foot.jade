@@ -1,10 +1,9 @@
-script(src="/javascripts/Scrollbar.min.js")
 script(charset="utf-8" src="/javascripts/common.js")
 script.
-  (function($){
-    $(window).load(function(){
-      $(".content").mCustomScrollbar({
-        scrollInertia:150
-      });
+  var editor;
+  KindEditor.ready(function(K){
+    editor = K.create('textarea', {
+    allowImageUpload: false,
+    items: ['fontname', 'fontsize', '|', 'hilitecolor', 'bold', 'italic', 'underline', 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'link']
     });
-  })(jQuery);
+  });

@@ -27,7 +27,23 @@ input:-webkit-autofill {
 	margin: 0;
 	padding: 0;
 }
+
+// 滚动条
+.jscrollbar {position: relative}
+.jscrollbar .x, .jscrollbar .y{position: absolute; background: #484642;background: rgba(0,0,0,.3);}
+.jscrollbar .x{width: 100%; left: 0; bottom:0}
+.jscrollbar .y{height: 100%; top: 0; right: 0}
+
+.jscrollbar .x .thumb, .jscrollbar .y .thumb{position: absolute; background: #1E1E1C;background: rgba(0,0,0,.6); border-radius: 5px}
+.jscrollbar .x .thumb{height: 100%; bottom:0}
+.jscrollbar .y .thumb{width: 100%; left:0}
+// 滚动条
+
+
+
+
 #cover-con{
+	display: none;
 	position: fixed;
   _position: absolute;
   z-index: 100;
@@ -48,6 +64,15 @@ input:-webkit-autofill {
 	border-radius: 5px;
 	background:#eee;
 	overflow: hidden;
+}
+#prompt .p-close{
+	position: absolute;
+	width:29px;
+	height:29px;
+	background: url(/images/blog-icon.png) no-repeat -12px -11px;
+	top: 0;
+	right: 0;
+	cursor: pointer;
 }
 #prompt .p-user{
 	cursor: move;
@@ -130,15 +155,6 @@ input:-webkit-autofill {
 #prompt .p-f-return{
 	color: #0c72c3;
 }
-#prompt .p-close{
-	position: absolute;
-	width:29px;
-	height:29px;
-	background: url(/images/blog-icon.png) no-repeat -12px -11px;
-	top: -3px;
-	right: -2px;
-	cursor: pointer;
-}
 #prompt .p-close:hover{
 	background: url(/images/blog-icon.png) no-repeat -42px -11px;
 }
@@ -169,6 +185,7 @@ li{
 .title{
 	padding: .5em 0;
 	border-bottom: 1px solid #cccccc;
+	margin-bottom: 20px;
 }
 .title h1{
 	  text-align: center;
@@ -184,7 +201,8 @@ li{
 .title .user{
 	float: right;
 }
-#login{
+.u-state{
+	display: block;
 	font: 14px/36px Simhei;
 	color:#eee;
 	text-align: center;
@@ -193,6 +211,7 @@ li{
 	border-radius: 5px;
 	margin-top: 20px;
 	cursor: pointer;
+	text-decoration: none;
 }
 .main-nav{
 	float: left;
@@ -235,29 +254,51 @@ li{
 	position: relative;
 	font-size: 16px;
 	overflow: auto;
-	margin-top:20px;
 	width:800px;
 	height:85%;
-	padding:10px;
 	float: left;
 	color:#eee;
 	min-height: 600px;
-}
-.content .inner{
-	padding: 20px;
-	border-radius: 5px;
+  border-radius: 5px;
+  box-shadow: 0px 1px 4px #888;
 }
 .content .shadow{
 	background:#fff;
-	opacity: 0.2;
+	opacity: 0.3;
 }
-.content a{
-	color: #dd0000;
+.content .inner{
+	position: relative;
+	padding: 20px;
+	border-radius: 5px;
+}
+.content .e-l-item{
+	background: rgba(82, 93, 111, 0.2);
+	border-radius: 5px;
+	padding: 10px;
+	box-sizing: border-box;
+	margin: 20px 0;
+	box-shadow: 2px 2px 10px #555;
+}
+.content .e-l-item:last-child{
+	margin-bottom: 0;
+}
+.content .item0{
+	margin-top: 0;
+}
+.content .c-head{
+	text-align: center;
+}
+.content .c-head a{
+	color: #ddd;
 	text-decoration: none;
+	font-family: simhei;
 }
-.content a:hover{
+.content .c-head a:hover{
 	color: #333333;
 	text-decoration: underline;
+}
+.content .c-title{
+	display: inline;
 }
 .info{
 	font-size: 14px;

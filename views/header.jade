@@ -6,8 +6,12 @@ html
     title Blog
     link(rel='stylesheet/less', href='/stylesheets/style.less')
     link(href="/stylesheets/jquery.mCustomScrollbar.css" rel="stylesheet")
+    link(rel="stylesheet" href="/KindEditor/themes/default/default.css")
     script(charset="utf-8" src="/editormd/examples/js/jquery.min.js")
     script(src="/javascripts/less.min.js")
+    script(charset="utf-8" src="/KindEditor/kindeditor-min.js")
+    script(charest="utf-8" src="/KindEditor/lang/zh_CN.js")
+    script(src="/javascripts/jquery.jscrollbar.min.js")
     //- script.
     //-   var editor;
     //-   KindEditor.ready(function(K){
@@ -28,38 +32,38 @@ html
     //-   //- });
   body
     div#cover-con
-    div#prompt
-      a.p-close
-      div.p-user
-        div.p-u-login.move 登录
+      div#prompt
+        a.p-close
+        div.p-user
+          div.p-u-login.move 登录
 
-      form#section1(method="post")
-        div.p-container
-          p.p-c-group
-            input.p-i-name.def(type="text" name="name" placeholder="请输入用户名" autocomplete="off")
-            input.p-i-pwd.def(type="password" name="password" placeholder="请输入密码" autocomplete="off")
-          input.p-i-reg(type="submit" value="登录")
-        div.p-foot.p-foot-r
-          a.p-f-go.p-f-href(href="javascript:;") 没有账号，前往注册&nbsp;&nbsp;>
+        form#section1(method="post" action="/login")
+          div.p-container
+            p.p-c-group
+              input.p-i-name.def(type="text" name="name" placeholder="请输入用户名" autocomplete="off")
+              input.p-i-pwd.def(type="password" name="password" placeholder="请输入密码" autocomplete="off")
+            input.p-i-reg(type="submit" value="登录")
+          div.p-foot.p-foot-r
+            a.p-f-go.p-f-href(href="javascript:;") 没有账号，前往注册&nbsp;&nbsp;>
 
-      form#section2(method="post")
-        div.p-container
-          p.p-c-group
-            div.p-c-text
-              label 用户名：
-            input.p-i-name.def(type="text" name="name" placeholder="请输入用户名" autocomplete="off")
-            div.p-c-text
-              label 密码：
-            input.p-i-pwd.def(type="password" name="password" placeholder="请输入密码" autocomplete="off")
-            div.p-c-text
-              label 确认密码：
-            input.p-i-pwdre.def(type="password" name="password-repeat" placeholder="请输入密码" autocomplete="off")
-            div.p-c-text
-              label 邮箱：
-            input.p-i-email.def(type="email" name="email" placeholder="请输入邮箱" autocomplete="off")
-          input.p-i-reg(type="submit" value="注册")
-        div.p-foot
-          a.p-f-return.p-f-href(href="javascript:;") <&nbsp;&nbsp;返回登录
+        form#section2(method="post" action="/reg")
+          div.p-container
+            p.p-c-group
+              div.p-c-text
+                label 用户名：
+              input.p-i-name.def(type="text" name="name" placeholder="请输入用户名" autocomplete="off")
+              div.p-c-text
+                label 密码：
+              input.p-i-pwd.def(type="password" name="password" placeholder="请输入密码" autocomplete="off")
+              div.p-c-text
+                label 确认密码：
+              input.p-i-pwdre.def(type="password" name="password-repeat" placeholder="请输入密码" autocomplete="off")
+              div.p-c-text
+                label 邮箱：
+              input.p-i-email.def(type="email" name="email" placeholder="请输入邮箱" autocomplete="off")
+            input.p-i-reg(type="submit" value="注册")
+          div.p-foot
+            a.p-f-return.p-f-href(href="javascript:;") <&nbsp;&nbsp;返回登录
 
 
     div#container
@@ -68,9 +72,9 @@ html
         div.user
           if (user)
             div.info
-            a(title="注销" href="/logout") 注销
+            a.u-state(title="注销" href="/logout") 注销
           else
-            div#login(title="登录") 登录/注册
+            div#login.u-state(title="登录") 登录/注册
       nav.main-nav
         ul
           if (user)
@@ -89,9 +93,9 @@ html
             li
               form(action="/search" method="GET")
                 input(type="text" name="keyword" placeholder="搜索" class="search")
-      article.content
-        div.shadow
+      article#scl-page.content
         div.inner
+          div.shadow
           if (success)
             div #{success}
           if (error)
