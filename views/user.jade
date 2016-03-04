@@ -1,30 +1,35 @@
 include header.jade
-  - for (var i = 0; i < posts.length; ++i)
-    p
-      h2
-        a(href="/u/#{posts[i].name}/#{posts[i].time.day}/#{posts[i].title}") #{posts[i].title}
-        a(href="/u/#{posts[i].name}")
-          img(src="#{posts[i].head}" class="r_head")
-    p.info
-      |作者：
-      a(href="/u/#{posts[i].name}") #{posts[i].name}&nbsp;&nbsp;
-      |日期：#{posts[i].time.minute}
-      br
-      |标签：
-      - for(var j = 0; j<posts[i].tags.length; j++)
-        - if(posts[i].tags)
-          a.tag(href="/tags/#{posts[i].tags[j]}") #{posts[i].tags[j]}
-      //- - if (posts[i].reprint_info.reprint_from)
-      //-   br
-      //-   a(href="/u/#{posts[i].reprint_info.reprint_from.name}/#{posts[i].reprint_info.reprint_from.day}/#{posts[i].reprint_info.reprint_from.title}") 原文链接
-    p !{posts[i].post}
-    p.info
-      |阅读：#{posts[i].pv} |
-      |评论：#{posts[i].comments.length} |
-      //- |转载：
-      //- - if (posts[i].reprint_info.reprint_to)
-      //-   |#{posts[i].reprint_info.reprint_to.length}
-      //- - else
-      //-   |0
+  ul.essay-list
+    - for (var i = 0; i < posts.length; ++i)
+      li.e-l-item(class="item#{i}")
+        div.c-head
+          a(href="/u/#{posts[i].name}/#{posts[i].time.day}/#{posts[i].title}")
+            h2.c-title #{posts[i].title}
+        div.essay-main !{posts[i].post}
+          //- |浏览：#{posts[i].pv} |
+          //- |评论：#{posts[i].comments.length} |
+          //- |转载：
+          //- - if (posts[i].reprint_info.reprint_to)
+          //-   |#{posts[i].reprint_info.reprint_to.length}
+          //- - else
+          //-   |0
+        div.tag-father
+          - for(var j = 0; j<posts[i].tags.length; j++)
+            - if(posts[i].tags)
+              div.tag-container
+                a.tag(href="/tags/#{posts[i].tags[j]}") #{posts[i].tags[j]}
+          //- - if (posts[i].reprint_info.reprint_from)
+          //-   br
+          //-   a(href="/u/#{posts[i].reprint_info.reprint_from.name}/#{posts[i].reprint_info.reprint_from.day}/#{posts[i].reprint_info.reprint_from.title}") 原文链接
+        div.writer-container
+          div.w-left
+            a.w-href(href="/u/#{posts[i].name}")
+              img.w-head(src="#{posts[i].head}")
+          div.w-right
+            a.w-name(href="/u/#{posts[i].name}") #{posts[i].name}&nbsp;&nbsp;
+            span.w-time 发布于：#{posts[i].time.minute}
+          div.w-item
+            span.w-i-look.w-i-common 浏览
+            span.w-i-say.w-i-common 评论
   include paging.jade
 include foot.jade

@@ -1,11 +1,12 @@
-br
-div
-- if(!isFirstPage)
-  span.prepage
-    a(title="上一页" href="?p=#{page-1}") 上一页
-- if(!isLastPage)
-  span.nextpage
-    a(title="下一页" href="?p=#{page+1}") 下一页
+div.page-control
+  - if(!isFirstPage)
+    span.prepage.p-c-btn
+      a(title="上一页" href="?p=#{page-1}")
+        span 上一页
+  - if(!isLastPage)
+    span.nextpage.p-c-btn
+      a(title="下一页" href="?p=#{page+1}")
+        span 下一页
 script.
   $(function(){
     var scl = function(){

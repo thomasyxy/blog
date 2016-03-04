@@ -1,0 +1,8 @@
+br
+- for (var i = 0; i < post.comments.length; ++i)
+  div(style="padding-left:4em")
+    p
+      img(src="#{post.comments[i].head}" class="l_head")
+      a(href="#{post.comments[i].website}") #{post.comments[i].name}
+      span.info 回复于 #{post.comments[i].time}
+      p !{post.comments[i].content}
