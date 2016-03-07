@@ -4,14 +4,21 @@ html
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     title Blog
-    link(rel='stylesheet/less', href='/stylesheets/style.less')
+    link(rel='stylesheet' href='/stylesheets/style.css')
     link(href="/stylesheets/jquery.mCustomScrollbar.css" rel="stylesheet")
     link(rel="stylesheet" href="/KindEditor/themes/default/default.css")
     script(charset="utf-8" src="/editormd/examples/js/jquery.min.js")
-    script(src="/javascripts/less.min.js")
     script(charset="utf-8" src="/KindEditor/kindeditor-min.js")
     script(charest="utf-8" src="/KindEditor/lang/zh_CN.js")
     script(src="/javascripts/jquery.jscrollbar.min.js")
+    script.
+      var editor;
+      KindEditor.ready(function(K){
+        editor = K.create('textarea', {
+        allowImageUpload: false,
+        items: ['fontname', 'fontsize', '|', 'hilitecolor', 'bold', 'italic', 'underline', 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+        });
+      });
     //- script.
     //-   var editor;
     //-   KindEditor.ready(function(K){
@@ -32,6 +39,8 @@ html
     //-   //- });
   body
     div#cover-con
+
+
       div#prompt
         a.p-close
         div.p-user
@@ -93,37 +102,8 @@ html
             li
               form(action="/search" method="GET")
                 input(type="text" name="keyword" placeholder="搜索" class="search")
-      div#edit-comment.edit-text
-        form(method="post")
-          include kindeditor.jade
-          //- include editormd.jade
-          - if(user)
-            |姓名：
-            input(type="text" name="name" value="#{user.name}")
-            br
-            |邮箱：
-            input(type="text" name="email" value="#{user.email}")
-            br
-            |网址：
-            input(type="text" name="website" value="/u/#{user.name}")
-            br
-          - else
-            |姓名：
-            input(type="text" name="name")
-            br
-            |邮箱：
-            input(type="text" name="email")
-            br
-            |网址：
-            input(type="text" name="website" value="http://")
-
-          //- div#editor
-          //-   div#editormd
-          //-     textarea(name="content")
-
-          textarea(name="content" rows="5" cols="80")
-          br
-          input(type="submit" value="留言")
+      aside.tags-con
+        
       article#scl-page.content.con-post
         div.inner
           div.shadow

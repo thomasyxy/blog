@@ -1,65 +1,226 @@
-include header.post.jade
-  div.essay-list
-    - if (user && (user.name == post.name))
-      span
-        a.edit(href="/edit/#{post.name}/#{post.time.day}/#{post.title}") 编辑
-      span
-        a.edit(href="/remove/#{post.name}/#{post.time.day}/#{post.title}") 删除
-    //- - var flag = 1
-    //- - if (user && (user.name != post.name))
-    //-   - if ((post.reprint_info.reprint_from != undefined) && (user.name == post.reprint_info.reprint_from.name))
-    //-     - flag = 0
-    //-   - if ((post.reprint_info.reprint_to != undefined))
-    //-     - for(var i=0; i<post.reprint_info.reprint_to.length; i++)
-    //-       - if (user.name == post.reprint_info.reprint_to.name)
-    //-         - flag = 0
-    //- - else
-    //-   - flag = 0
-    //- - if (flag)
-    //-   span
-    //-     a.edit(href="/reprint/#{post.name}/#{post.time.day}/#{post.title}") 转载
-    li.e-l-item(class="item#{i}")
-        div.c-head
-          a(href="/u/#{post.name}/#{post.time.day}/#{post.title}")
-            h2.c-title #{post.title}
-        div.essay-main !{post.post}
-        div.tag-father
-          - for(var j = 0; j<post.tags.length; j++)
-            - if(post.tags)
-              div.tag-container
-                a.tag(href="/tags/#{post.tags[j]}") #{post.tags[j]}
-          //- - if (posts[i].reprint_info.reprint_from)
-          //-   br
-          //-   a(href="/u/#{posts[i].reprint_info.reprint_from.name}/#{posts[i].reprint_info.reprint_from.day}/#{posts[i].reprint_info.reprint_from.title}") 原文链接
-        div.writer-container
-          div.w-left
-            a.w-href(href="/u/#{post.name}")
-              img.w-head(src="#{post.head}")
-          div.w-right
-            a.w-name(href="/u/#{post.name}") #{post.name}&nbsp;&nbsp;
-            span.w-time 发布于：#{post.time.minute}
-          div.w-item
-            span.w-i-look.w-i-common 浏览
-            span.w-i-say.w-i-common 评论
-    //- p.info
-    //-   |作者：
-    //-   a(href="/u/#{post.name}") #{post.name}&nbsp;&nbsp;
-    //-   |日期：#{post.time.minute}
-    //-   br
-    //-   |标签：
-    //-   - for(var j = 0; j<post.tags.length; j++)
-    //-     - if(post.tags[j])
-    //-       a.tag(href="/tags/#{post.tags[j]}") #{post.tags[j]}
-      //- - if (post.reprint_info.reprint_from)
-      //-   br
-      //-   a(href="/u/#{post.reprint_info.reprint_from.name}/#{post.reprint_info.reprint_from.day}/#{post.reprint_info.reprint_from.title}") 原文链接
-    //- p !{post.post}
-    //- p.info
-    //-   |阅读：#{post.pv} |
-    //-   |评论：#{post.comments.length} |
-      //- |转载：
-      //- - if (post.reprint_info.reprint_to)
-      //-   |#{post.reprint_info.reprint_to.length}
-      //- - else
-      //-   |0
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title Blog
+    link(rel='stylesheet' href='/stylesheets/style.css')
+    link(href="/stylesheets/jquery.mCustomScrollbar.css" rel="stylesheet")
+    link(rel="stylesheet" href="/KindEditor/themes/default/default.css")
+    script(charset="utf-8" src="/editormd/examples/js/jquery.min.js")
+    script(charset="utf-8" src="/KindEditor/kindeditor-min.js")
+    script(charest="utf-8" src="/KindEditor/lang/zh_CN.js")
+    script(src="/javascripts/jquery.jscrollbar.min.js")
+    script.
+      var editor;
+      KindEditor.ready(function(K){
+        editor = K.create('textarea', {
+        allowImageUpload: false,
+        items: ['fontname', 'fontsize', '|', 'hilitecolor', 'bold', 'italic', 'underline', 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+        });
+      });
+    //- script.
+    //-   var editor;
+    //-   KindEditor.ready(function(K){
+    //-     editor = K.create('#kindeditor');
+    //-   });
+    //-   //- $(function() {
+    //-   //-     var editor = editormd("editormd", {
+    //-   //-         path : "/editor.md/lib/" // Autoload modules mode, codemirror, marked... dependents libs path
+    //-   //-     });
+
+    //-   //-     /*
+    //-   //-     // or
+    //-   //-     var editor = editormd({
+    //-   //-         id   : "editormd",
+    //-   //-         path : "../lib/"
+    //-   //-     });
+    //-   //-     */
+    //-   //- });
+  body
+    div#cover-con
+      div#prompt
+        a.p-close
+        div.p-user
+          div.p-u-login.move 登录
+
+        form#section1(method="post" action="/login")
+          div.p-container
+            p.p-c-group
+              input.p-i-name.def(type="text" name="name" placeholder="请输入用户名" autocomplete="off")
+              input.p-i-pwd.def(type="password" name="password" placeholder="请输入密码" autocomplete="off")
+            input.p-i-reg(type="submit" value="登录")
+          div.p-foot.p-foot-r
+            a.p-f-go.p-f-href(href="javascript:;") 没有账号，前往注册&nbsp;&nbsp;>
+
+        form#section2(method="post" action="/reg")
+          div.p-container
+            p.p-c-group
+              div.p-c-text
+                label 用户名：
+              input.p-i-name.def(type="text" name="name" placeholder="请输入用户名" autocomplete="off")
+              div.p-c-text
+                label 密码：
+              input.p-i-pwd.def(type="password" name="password" placeholder="请输入密码" autocomplete="off")
+              div.p-c-text
+                label 确认密码：
+              input.p-i-pwdre.def(type="password" name="password-repeat" placeholder="请输入密码" autocomplete="off")
+              div.p-c-text
+                label 邮箱：
+              input.p-i-email.def(type="email" name="email" placeholder="请输入邮箱" autocomplete="off")
+            input.p-i-reg(type="submit" value="注册")
+          div.p-foot
+            a.p-f-return.p-f-href(href="javascript:;") <&nbsp;&nbsp;返回登录
+
+
+    div#container
+      header.title
+        h1 #{title}
+        div.user
+          if (user)
+            div.info
+            a.u-state(title="注销" href="/logout") 注销
+          else
+            div#login.u-state(title="登录") 登录/注册
+      nav.main-nav
+        ul
+          if (user)
+            //- each val, index in [['/','主页','home'],['/archive','存档','archive'],['/tags','标签','tags'],['/links','友情链接','links'],['/upload','上传','upload'],['/post','发表','post'],['/logout','登出','logout']]
+            each val, index in [['/','主页','home'],['/archive','存档','archive'],['/tags','标签','tags'],['/links','友情链接','links'],['/post','发表','post']]
+              li(class="page #{val[2]}")
+                a(title='#{val[1]}' href='#{val[0]}') #{val[1]}
+                  div.shadow
+            li
+              form(action="/search" method="GET")
+                input(type="text" name="keyword" placeholder="搜索" class="search")
+          else
+            //- each val, index in [['/','主页','home'],['/archive','存档','archive'],['/tags','标签','tags'],['/links','友情链接','links'],['/login','登录','login'],['/reg','注册','register']]
+            each val, index in [['/','主页','home'],['/archive','存档','archive'],['/tags','标签','tags'],['/links','友情链接','links']]
+              li(class="page #{val[2]}")
+                a(title='#{val[1]}' href='#{val[0]}') #{val[1]}
+                  div.shadow
+            li
+              form(action="/search" method="GET")
+                input(type="text" name="keyword" placeholder="搜索" class="search")
+      //- aside.tag-nav
+      //-   - for (var i = 0; i < posts.length; ++i)
+      //-     - for(var j = 0; j<posts[i].tags.length; j++)
+      //-       - if(posts[i].tags)
+      //-         div.tag-container
+      //-           a.tag(href="/tags/#{posts[i].tags[j]}") #{posts[i].tags[j]}
+      article#scl-page.content.con-post
+        div.inner
+          div.shadow
+          if (success)
+            div #{success}
+          if (error)
+            div #{error}
+          div.essay-list
+            //- - var flag = 1
+            //- - if (user && (user.name != post.name))
+            //-   - if ((post.reprint_info.reprint_from != undefined) && (user.name == post.reprint_info.reprint_from.name))
+            //-     - flag = 0
+            //-   - if ((post.reprint_info.reprint_to != undefined))
+            //-     - for(var i=0; i<post.reprint_info.reprint_to.length; i++)
+            //-       - if (user.name == post.reprint_info.reprint_to.name)
+            //-         - flag = 0
+            //- - else
+            //-   - flag = 0
+            //- - if (flag)
+            //-   span
+            //-     a.edit(href="/reprint/#{post.name}/#{post.time.day}/#{post.title}") 转载
+            li.e-l-item(class="item#{i}")
+                div.c-head
+                  a(href="/u/#{post.name}/#{post.time.day}/#{post.title}")
+                    h2.c-title #{post.title}
+                div.essay-main !{post.post}
+                div.tag-father
+                  - for(var j = 0; j<post.tags.length; j++)
+                    - if(post.tags)
+                      div.tag-container
+                        a.tag(href="/tags/#{post.tags[j]}") #{post.tags[j]}
+                  //- - if (posts[i].reprint_info.reprint_from)
+                  //-   br
+                  //-   a(href="/u/#{posts[i].reprint_info.reprint_from.name}/#{posts[i].reprint_info.reprint_from.day}/#{posts[i].reprint_info.reprint_from.title}") 原文链接
+                div.writer-container
+                  div.w-left
+                    a.w-href(href="/u/#{post.name}")
+                      img.w-head(src="#{post.head}")
+                  div.w-right
+                    a.w-name(href="/u/#{post.name}") #{post.name}&nbsp;&nbsp;
+                    span.w-time 发布于：#{post.time.minute}
+                  div.w-item
+                    - if (user && (user.name == post.name))
+                      a(href="/edit/#{post.name}/#{post.time.day}/#{post.title}")
+                        span.w-i-common2.w-i-edit 编辑
+                      a(href="/remove/#{post.name}/#{post.time.day}/#{post.title}")
+                        span.w-i-common2.w-i-remove 删除
+                    span.w-i-look.w-i-common2 浏览
+                    span.w-i-say.w-i-common2 评论
+          div#discuss
+            - for (var i = 0; i < post.comments.length; ++i)
+              div.d-comment(class="d-comment#{i}")
+                p.d-c-info
+                  div.d-c-top
+                    div.d-c-left
+                      a.d-c-href(href="#{post.comments[i].website}")
+                        img.d-c-head(src="#{post.comments[i].head}")
+                      a.d-c-name(href="#{post.comments[i].website}") #{post.comments[i].name}
+                    div.d-c-right
+                      p.d-c-content !{post.comments[i].content}
+                    div.d-c-bottom
+                      span.d-c-time 回复于 #{post.time.minute}
+            //- p.info
+            //-   |作者：
+            //-   a(href="/u/#{post.name}") #{post.name}&nbsp;&nbsp;
+            //-   |日期：#{post.time.minute}
+            //-   br
+            //-   |标签：
+            //-   - for(var j = 0; j<post.tags.length; j++)
+            //-     - if(post.tags[j])
+            //-       a.tag(href="/tags/#{post.tags[j]}") #{post.tags[j]}
+              //- - if (post.reprint_info.reprint_from)
+              //-   br
+              //-   a(href="/u/#{post.reprint_info.reprint_from.name}/#{post.reprint_info.reprint_from.day}/#{post.reprint_info.reprint_from.title}") 原文链接
+            //- p !{post.post}
+            //- p.info
+            //-   |阅读：#{post.pv} |
+            //-   |评论：#{post.comments.length} |
+              //- |转载：
+              //- - if (post.reprint_info.reprint_to)
+              //-   |#{post.reprint_info.reprint_to.length}
+              //- - else
+              //-   |0
+
+      div#edit-comment.edit-text
+        form(method="post")
+          include kindeditor.jade
+          //- include editormd.jade
+          - if(user)
+            |姓名：
+            input(type="text" name="name" value="#{user.name}")
+            br
+            |邮箱：
+            input(type="text" name="email" value="#{user.email}")
+            br
+            |网址：
+            input(type="text" name="website" value="/u/#{user.name}")
+            br
+          - else
+            |姓名：
+            input(type="text" name="name")
+            br
+            |邮箱：
+            input(type="text" name="email")
+            br
+            |网址：
+            input(type="text" name="website" value="http://")
+
+          //- div#editor
+          //-   div#editormd
+          //-     textarea(name="content")
+
+          textarea(name="content" rows="5" cols="80")
+          br
+          input(type="submit" value="留言")
 include foot.jade

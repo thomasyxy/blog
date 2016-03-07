@@ -29,7 +29,7 @@ include header.jade
             a.w-name(href="/u/#{posts[i].name}") #{posts[i].name}&nbsp;&nbsp;
             span.w-time 发布于：#{posts[i].time.minute}
           div.w-item
-            span.w-i-look.w-i-common 浏览
-            span.w-i-say.w-i-common 评论
+            span.w-i-look.w-i-common2 浏览：#{posts[i].pv}
+            span.w-i-say.w-i-common2 评论：#{posts[i].comments.length}
   include paging.jade
 include foot.jade

@@ -4,14 +4,21 @@ html
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     title Blog
-    link(rel='stylesheet/less', href='/stylesheets/style.less')
+    link(rel='stylesheet' href='/stylesheets/style.css')
     link(href="/stylesheets/jquery.mCustomScrollbar.css" rel="stylesheet")
     link(rel="stylesheet" href="/KindEditor/themes/default/default.css")
     script(charset="utf-8" src="/editormd/examples/js/jquery.min.js")
-    script(src="/javascripts/less.min.js")
     script(charset="utf-8" src="/KindEditor/kindeditor-min.js")
     script(charest="utf-8" src="/KindEditor/lang/zh_CN.js")
     script(src="/javascripts/jquery.jscrollbar.min.js")
+    script.
+      var editor;
+      KindEditor.ready(function(K){
+        editor = K.create('textarea', {
+        allowImageUpload: false,
+        items: ['fontname', 'fontsize', '|', 'hilitecolor', 'bold', 'italic', 'underline', 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+        });
+      });
     //- script.
     //-   var editor;
     //-   KindEditor.ready(function(K){
@@ -78,7 +85,8 @@ html
       nav.main-nav
         ul
           if (user)
-            each val, index in [['/','主页','home'],['/archive','存档','archive'],['/tags','标签','tags'],['/links','友情链接','links'],['/upload','上传','upload'],['/post','发表','post'],['/logout','登出','logout']]
+            //- each val, index in [['/','主页','home'],['/archive','存档','archive'],['/tags','标签','tags'],['/links','友情链接','links'],['/upload','上传','upload'],['/post','发表','post'],['/logout','登出','logout']]
+            each val, index in [['/','主页','home'],['/archive','存档','archive'],['/tags','标签','tags'],['/links','友情链接','links'],['/post','发表','post']]
               li(class="page #{val[2]}")
                 a(title='#{val[1]}' href='#{val[0]}') #{val[1]}
                   div.shadow
@@ -86,13 +94,20 @@ html
               form(action="/search" method="GET")
                 input(type="text" name="keyword" placeholder="搜索" class="search")
           else
-            each val, index in [['/','主页','home'],['/archive','存档','archive'],['/tags','标签','tags'],['/links','友情链接','links'],['/login','登录','login'],['/reg','注册','register']]
+            //- each val, index in [['/','主页','home'],['/archive','存档','archive'],['/tags','标签','tags'],['/links','友情链接','links'],['/login','登录','login'],['/reg','注册','register']]
+            each val, index in [['/','主页','home'],['/archive','存档','archive'],['/tags','标签','tags'],['/links','友情链接','links']]
               li(class="page #{val[2]}")
                 a(title='#{val[1]}' href='#{val[0]}') #{val[1]}
                   div.shadow
             li
               form(action="/search" method="GET")
                 input(type="text" name="keyword" placeholder="搜索" class="search")
+      //- aside.tag-nav
+      //-   - for (var i = 0; i < posts.length; ++i)
+      //-     - for(var j = 0; j<posts[i].tags.length; j++)
+      //-       - if(posts[i].tags)
+      //-         div.tag-container
+      //-           a.tag(href="/tags/#{posts[i].tags[j]}") #{posts[i].tags[j]}
       article#scl-page.content
         div.inner
           div.shadow

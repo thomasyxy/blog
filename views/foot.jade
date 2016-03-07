@@ -1,9 +1,17 @@
 script(charset="utf-8" src="/javascripts/common.js")
 script.
-  var editor;
-  KindEditor.ready(function(K){
-    editor = K.create('textarea', {
-    allowImageUpload: false,
-    items: ['fontname', 'fontsize', '|', 'hilitecolor', 'bold', 'italic', 'underline', 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'link']
-    });
+  $(function(){
+    var scl = function(){
+      var abc = $('.inner').width();
+      $('#scl-page').jscrollbar();
+    }
+    setTimeout(scl,300);
   });
+//- script.
+//-   var editor;
+//-   KindEditor.ready(function(K){
+//-     editor = K.create('textarea', {
+//-     allowImageUpload: false,
+//-     items: ['fontname', 'fontsize', '|', 'hilitecolor', 'bold', 'italic', 'underline', 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+//-     });
+//-   });

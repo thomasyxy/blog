@@ -1,4 +1,7 @@
 include header.jade
-  - for (var i = 0; i < posts.length; ++i)
-    a.tag(href="/tags/#{posts[i]}") #{posts[i]}
+  div.tag-main
+    - for (var i = 0; i < posts.length; ++i)
+      div.tag-container.tag-page
+        a.tag(href="/tags/#{posts[i]}") #{posts[i]}
+    .clear
 include foot.jade

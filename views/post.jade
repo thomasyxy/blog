@@ -1,24 +1,134 @@
-include header.jade
-  form(method="post")
-    include kindeditor.jade
-    //- include editormd.jade
-    |标题
-    br
-    input(type="text" name="title")
-    br
-    |标签
-    br
-    input(type="text" name="tag1")
-    input(type="text" name="tag2")
-    input(type="text" name="tag3")
-    br
-    |正文
-    br
-    //- div#editor
-    //-   div#editormd
-    //-     textarea(name="post")
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title Blog
+    link(rel='stylesheet' href='/stylesheets/style.css')
+    link(href="/stylesheets/jquery.mCustomScrollbar.css" rel="stylesheet")
+    link(rel="stylesheet" href="/KindEditor/themes/default/default.css")
+    script(charset="utf-8" src="/editormd/examples/js/jquery.min.js")
+    script(charset="utf-8" src="/KindEditor/kindeditor-min.js")
+    script(charest="utf-8" src="/KindEditor/lang/zh_CN.js")
+    script(src="/javascripts/jquery.jscrollbar.min.js")
+    script.
+      var editor;
+      KindEditor.ready(function(K){
+        editor = K.create('textarea', {
+        allowImageUpload: false,
+        items: ['fontname', 'fontsize', '|', 'hilitecolor', 'bold', 'italic', 'underline', 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+        });
+      });
+    //- script.
+    //-   var editor;
+    //-   KindEditor.ready(function(K){
+    //-     editor = K.create('#kindeditor');
+    //-   });
+    //-   //- $(function() {
+    //-   //-     var editor = editormd("editormd", {
+    //-   //-         path : "/editor.md/lib/" // Autoload modules mode, codemirror, marked... dependents libs path
+    //-   //-     });
 
-    textarea(name="post" rows="20" cols="100")
-    br
-    input(type="submit" value="发表")
+    //-   //-     /*
+    //-   //-     // or
+    //-   //-     var editor = editormd({
+    //-   //-         id   : "editormd",
+    //-   //-         path : "../lib/"
+    //-   //-     });
+    //-   //-     */
+    //-   //- });
+  body
+    div#cover-con
+      div#prompt
+        a.p-close
+        div.p-user
+          div.p-u-login.move 登录
+
+        form#section1(method="post" action="/login")
+          div.p-container
+            p.p-c-group
+              input.p-i-name.def(type="text" name="name" placeholder="请输入用户名" autocomplete="off")
+              input.p-i-pwd.def(type="password" name="password" placeholder="请输入密码" autocomplete="off")
+            input.p-i-reg(type="submit" value="登录")
+          div.p-foot.p-foot-r
+            a.p-f-go.p-f-href(href="javascript:;") 没有账号，前往注册&nbsp;&nbsp;>
+
+        form#section2(method="post" action="/reg")
+          div.p-container
+            p.p-c-group
+              div.p-c-text
+                label 用户名：
+              input.p-i-name.def(type="text" name="name" placeholder="请输入用户名" autocomplete="off")
+              div.p-c-text
+                label 密码：
+              input.p-i-pwd.def(type="password" name="password" placeholder="请输入密码" autocomplete="off")
+              div.p-c-text
+                label 确认密码：
+              input.p-i-pwdre.def(type="password" name="password-repeat" placeholder="请输入密码" autocomplete="off")
+              div.p-c-text
+                label 邮箱：
+              input.p-i-email.def(type="email" name="email" placeholder="请输入邮箱" autocomplete="off")
+            input.p-i-reg(type="submit" value="注册")
+          div.p-foot
+            a.p-f-return.p-f-href(href="javascript:;") <&nbsp;&nbsp;返回登录
+
+
+    div#container
+      header.title
+        h1 #{title}
+        div.user
+          if (user)
+            div.info
+            a.u-state(title="注销" href="/logout") 注销
+          else
+            div#login.u-state(title="登录") 登录/注册
+      nav.main-nav
+        ul
+          if (user)
+            //- each val, index in [['/','主页','home'],['/archive','存档','archive'],['/tags','标签','tags'],['/links','友情链接','links'],['/upload','上传','upload'],['/post','发表','post'],['/logout','登出','logout']]
+            each val, index in [['/','主页','home'],['/archive','存档','archive'],['/tags','标签','tags'],['/links','友情链接','links'],['/post','发表','post']]
+              li(class="page #{val[2]}")
+                a(title='#{val[1]}' href='#{val[0]}') #{val[1]}
+                  div.shadow
+            li
+              form(action="/search" method="GET")
+                input(type="text" name="keyword" placeholder="搜索" class="search")
+          else
+            //- each val, index in [['/','主页','home'],['/archive','存档','archive'],['/tags','标签','tags'],['/links','友情链接','links'],['/login','登录','login'],['/reg','注册','register']]
+            each val, index in [['/','主页','home'],['/archive','存档','archive'],['/tags','标签','tags'],['/links','友情链接','links']]
+              li(class="page #{val[2]}")
+                a(title='#{val[1]}' href='#{val[0]}') #{val[1]}
+                  div.shadow
+            li
+              form(action="/search" method="GET")
+                input(type="text" name="keyword" placeholder="搜索" class="search")
+      //- aside.tag-nav
+      //-   - for (var i = 0; i < posts.length; ++i)
+      //-     - for(var j = 0; j<posts[i].tags.length; j++)
+      //-       - if(posts[i].tags)
+      //-         div.tag-container
+      //-           a.tag(href="/tags/#{posts[i].tags[j]}") #{posts[i].tags[j]}
+      div
+        form(method="post")
+          include kindeditor.jade
+          //- include editormd.jade
+          |标题
+          br
+          input(type="text" name="title")
+          br
+          |标签
+          br
+          input(type="text" name="tag1")
+          input(type="text" name="tag2")
+          input(type="text" name="tag3")
+          br
+          |正文
+          br
+          //- div#editor
+          //-   div#editormd
+          //-     textarea(name="post")
+
+          textarea(name="post" rows="20" cols="100")
+          br
+          input(type="submit" value="发表")
 include foot.jade
