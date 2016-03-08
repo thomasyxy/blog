@@ -129,34 +129,34 @@ html
             //- - if (flag)
             //-   span
             //-     a.edit(href="/reprint/#{post.name}/#{post.time.day}/#{post.title}") 转载
-            li.e-l-item(class="item#{i}")
-                div.c-head
-                  a(href="/u/#{post.name}/#{post.time.day}/#{post.title}")
-                    h2.c-title #{post.title}
-                div.essay-main !{post.post}
-                div.tag-father
-                  - for(var j = 0; j<post.tags.length; j++)
-                    - if(post.tags)
-                      div.tag-container
-                        a.tag(href="/tags/#{post.tags[j]}") #{post.tags[j]}
-                  //- - if (posts[i].reprint_info.reprint_from)
-                  //-   br
-                  //-   a(href="/u/#{posts[i].reprint_info.reprint_from.name}/#{posts[i].reprint_info.reprint_from.day}/#{posts[i].reprint_info.reprint_from.title}") 原文链接
-                div.writer-container
-                  div.w-left
-                    a.w-href(href="/u/#{post.name}")
-                      img.w-head(src="#{post.head}")
-                  div.w-right
-                    a.w-name(href="/u/#{post.name}") #{post.name}&nbsp;&nbsp;
-                    span.w-time 发布于：#{post.time.minute}
-                  div.w-item
-                    - if (user && (user.name == post.name))
-                      a(href="/edit/#{post.name}/#{post.time.day}/#{post.title}")
-                        span.w-i-common2.w-i-edit 编辑
-                      a(href="/remove/#{post.name}/#{post.time.day}/#{post.title}")
-                        span.w-i-common2.w-i-remove 删除
-                    span.w-i-look.w-i-common2 浏览
-                    span.w-i-say.w-i-common2 评论
+            //- li.e-l-item(class="item#{i}")
+            div.c-head
+              a(href="/u/#{post.name}/#{post.time.day}/#{post.title}")
+                h2.c-title #{post.title}
+            div.essay-main !{post.post}
+            div.tag-father
+              - for(var j = 0; j<post.tags.length; j++)
+                - if(post.tags)
+                  div.tag-container
+                    a.tag(href="/tags/#{post.tags[j]}") #{post.tags[j]}
+              //- - if (posts[i].reprint_info.reprint_from)
+              //-   br
+              //-   a(href="/u/#{posts[i].reprint_info.reprint_from.name}/#{posts[i].reprint_info.reprint_from.day}/#{posts[i].reprint_info.reprint_from.title}") 原文链接
+            div.writer-container
+              div.w-left
+                a.w-href(href="/u/#{post.name}")
+                  img.w-head(src="#{post.head}")
+              div.w-right
+                a.w-name(href="/u/#{post.name}") #{post.name}&nbsp;&nbsp;
+                span.w-time 发布于：#{post.time.minute}
+              div.w-item
+                - if (user && (user.name == post.name))
+                  a(href="/edit/#{post.name}/#{post.time.day}/#{post.title}")
+                    span.w-i-common2.w-i-edit 编辑
+                  a(href="/remove/#{post.name}/#{post.time.day}/#{post.title}")
+                    span.w-i-common2.w-i-remove 删除
+                span.w-i-look.w-i-common2 浏览
+                span.w-i-say.w-i-common2 评论
           div#discuss
             - for (var i = 0; i < post.comments.length; ++i)
               div.d-comment(class="d-comment#{i}")

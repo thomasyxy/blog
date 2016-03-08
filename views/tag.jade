@@ -1,10 +1,18 @@
 include header.jade
-ul.archive
-  - for(var i = 0; i<posts.length; i++)
-      li
-        h3 #{posts[i].time.year}
-      li
-        time #{posts[i].time.day}
-      li
-        a(href="/u/#{posts[i].name}/#{posts[i].time.day}/#{posts[i].title}") #{posts[i].title}
+  ul.archive
+    - var lastYear = 0
+    - for(var i = 0 ; i<posts.length ; i++)
+      - if(lastYear != posts[i].time.year)
+        li.a-l-year
+          h3 #{posts[i].time.year}
+        - lastYear = posts[i].time.year
+      li(class="item#{i} item")
+        ul.a-list
+          li.a-l-title 标题：
+            a(href="/u/#{posts[i].name}/#{posts[i].time.day}/#{posts[i].title}") #{posts[i].title}
+          li.a-l-writer 作者：
+            a(href="/u/#{posts[i].name}") #{posts[i].name}
+          li.a-l-day 发布时间：
+            time #{posts[i].time.minute}
+    .clear
 include foot.jade
