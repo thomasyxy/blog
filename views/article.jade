@@ -78,7 +78,9 @@ html
         h1 #{title}
         div.user
           if (user)
-            div.info
+            a(href="/u/#{user.name}").u-info
+              img.u-head(src="#{user.head}")
+              div.u-name #{user.name}
             a.u-state(title="注销" href="/logout") 注销
           else
             div#login.u-state(title="登录") 登录/注册
@@ -155,8 +157,8 @@ html
                     span.w-i-common2.w-i-edit 编辑
                   a(href="/remove/#{post.name}/#{post.time.day}/#{post.title}")
                     span.w-i-common2.w-i-remove 删除
-                span.w-i-look.w-i-common2 浏览
-                span.w-i-say.w-i-common2 评论
+                span.w-i-look.w-i-common2 浏览：#{post.pv}
+                span.w-i-say.w-i-common2 评论：#{post.comments.length}
           div#discuss
             - for (var i = 0; i < post.comments.length; ++i)
               div.d-comment(class="d-comment#{i}")

@@ -206,8 +206,31 @@ li{
 }
 .title .user{
 	float: right;
+	margin-top: 20px;
 }
-.u-state{
+.title .u-info{
+	display: block;
+	float: left;
+	margin: 3px 20px;
+}
+.title .u-head{
+	height: 30px;
+	width: 30px;
+	border-radius: 3px;
+	float: left;
+	margin-right: 10px;
+}
+.title .u-name{
+	color: #adadad;
+	font:14px/30px Arial, Helvetica, sans-serif;
+	float: left;
+	max-width: 60px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.title .u-state{
+	float: left;
 	display: block;
 	font: 14px/36px Simhei;
 	color:#eee;
@@ -215,7 +238,6 @@ li{
 	padding: 0 10px;
 	background: #555;
 	border-radius: 5px;
-	margin-top: 20px;
 	cursor: pointer;
 	text-decoration: none;
 }
@@ -425,22 +447,28 @@ li{
 	font: 13px/25px microsoft yahei;
 }
 .writer-container .w-href{
-	-webkit-font-smoothing: antialiased;
 }
 .writer-container .w-head{
 	width: 25px;
 	height:25px;
 	border-radius: 50%;
+	border: none;
 }
 .writer-container .w-name{
+	display: block;
+	float: left;
 	text-decoration: none;
 	color: #CCCC66;
+	max-width:60px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .writer-container .w-name:hover{
 
 }
 .writer-container .w-time{
-
+	line-height: 30px;
 }
 .writer-container .w-item{
 	float: right;
@@ -531,9 +559,15 @@ li{
 	border-radius: 50%;
 }
 #discuss .d-c-name{
+	display: block;
+	width: 60px;
 	font-size: 12px;
 	color: #fff;
+	margin: 0 auto;
 	text-decoration:none;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 #discuss .d-c-content{
 	padding: 5px 10px 5px 100px;

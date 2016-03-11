@@ -78,7 +78,9 @@ html
         h1 #{title}
         div.user
           if (user)
-            div.info
+            a(href="/u/#{user.name}").u-info
+              img.u-head(src="#{user.head}")
+              div.u-name #{user.name}
             a.u-state(title="注销" href="/logout") 注销
           else
             div#login.u-state(title="登录") 登录/注册
